@@ -5,6 +5,10 @@ class GroupsController < ApplicationController
   def index
 
   end
+
+  def test
+    
+  end
   
   def new
     @group = Group.new
