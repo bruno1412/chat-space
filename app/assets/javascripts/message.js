@@ -1,56 +1,52 @@
-$(document).on('turbolinks:load', function(){
-  $('#new_message').on('submit', function(e){
-    e.preventDefault();
-    var message = new FormData(this); //フォームに入力した値を取得しています。
-  })
-});
+$(function() {
+  function createImage(message){
+    if(message.image.url == null){
+      return ``
+    } else {
+      return `<img class="lower-message__image" src='${message.image.url}'></img>`
+    }
+  }
 
-$(function(){
-  function buildHTML(message){
-    var html = `<div class="message" data-id="${message.user_id}">
-                  <div class="message__detail">
-                    <p class="message__detail__current-user-name">
-                      ${message.name}
-                    </p>
-                  </div>
-                  <p class="message_body">
-                    <div>
-                    ${content}
+  function buildMessage(message){  
+      var html = `<div class="message">
+                    <div class="message__upper">
+                      <div class="upper__name">
+                        ${message.user_name}
+                      </div>
+                      <div class="upper__date">
+                        ${message.date}
+                      </div>
                     </div>
-                  </p>
-                </div>`
-  return html;}
+                    <div class="message-text">
+                      <p class="lower-message__content">
+                        ${message.content}
+                      </p>
+                        ${createImage(message)}  
+                  </div>`
+    return html
+  }
 
-
-  $('#new_mssage').on('submit', function(e){
-    e.preventDefault();
+  $("#new_message").on('submit',function(){
     var formData = new FormData(this);
-    var url = (window.location.href);
+    var url = $(this).attr('action');
     $.ajax({
       url: url,
-      type: 'POST',
-      data: message,
+      type: "POST",
+      data: formData,
       dataType: 'json',
       processData: false,
       contentType: false
     })
-    .done(function(data){
-      var html = buildHTML(data);
+    .done(function(message){
+      var html = buildMessage(message)
+      $('div').animate({scrollTop: $('.messages').height()})
       $('.messages').append(html)
-      $('#message_content').val('')
+      $('form')[0].reset();
     })
     .fail(function(){
-      alert('error');
+      alert('messageか画像を入力してください')
     })
-    .always(function(data){
-      $('.submit-btn').prop('disabled', false);
-    })
+    
+    return false;
   })
 });
-function scrollBottom(){
-  var target = $('.message').last();
-  var position = target.offset().top + $('.messages').scrollTop();
-  $('.messages').animate({
-    scrollTop: position
-  }, 300, 'swing');
-}
