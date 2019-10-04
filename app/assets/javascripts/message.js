@@ -7,7 +7,7 @@ $(function() {
     }
   }
 
-  function buildMessage(message){  
+  function buildHTML(message){  
       var html = `<div class="message" data-message-id="${message.id}">
                     <div class="message__upper">
                       <div class="upper__name">
@@ -38,8 +38,8 @@ $(function() {
       contentType: false
     })
     .done(function(message){
-      var html = buildMessage(message)
-      $('div').animate({scrollTop: $('.messages').height()})
+      var html = buildHTML(message)
+      $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
       $('.messages').append(html)
       $('form')[0].reset();
     })
@@ -65,8 +65,8 @@ $(function() {
         messages.forEach(function (message){
           insertHTML = buildHTML(message);
           $('.messages').append(insertHTML);
+          $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
         })
-        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
       })
       .fail(function() {
         alert("自動更新に失敗しました");
