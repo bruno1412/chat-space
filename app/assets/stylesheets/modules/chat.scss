@@ -8,7 +8,7 @@
       float: left;
       &__title {
         color: #333;
-        font-size: 20px;
+        font-size: 30px;
         margin-top: 35px;
       }
       &__members {
@@ -21,6 +21,21 @@
           padding-right: 5px;
         }
       }
+    }
+    p {
+      padding-bottom: 15px;
+        font-size: 20px;
+        color: gray;
+        float: left;
+        margin-top:70px;
+    }
+    span {
+      padding-bottom: 15px;
+      font-size: 20px;
+      color: gray;
+      float: left;
+      margin-left: 5px;
+      margin-top:70px;
     }
     .right-header {
       border: 1px solid $light_blue;
