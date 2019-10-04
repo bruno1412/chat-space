@@ -8,10 +8,10 @@
         .left-header__title
           = @group.name
         .left-header__members
-      %p Members:
-      - @group.users.each do |user|
-        %span
-          = user.name
+          %p Members:
+          %span
+            - @group.users.each do |user|
+              = user.name
       .right-header
         .right-header__button
         = link_to edit_group_path(@group) do
