@@ -40,6 +40,7 @@ $(function() {
     .done(function(message){
       var html = buildHTML(message)
       $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+
       $('.messages').append(html)
       $('form')[0].reset();
     })
@@ -74,4 +75,5 @@ $(function() {
     }
   };
   setInterval(reloadMessages, 5000);
+
 });
